@@ -45,3 +45,5 @@ univoco
 puede ser un id
 fk o foreign key es relacionar tablas
 normalizacion de bases de datos es un proceso de sistematizar las bases de datos para evitar la redundancia
+
+javascript es un lenguaje interpretado

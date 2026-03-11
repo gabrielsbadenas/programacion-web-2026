@@ -22,7 +22,7 @@ va desde lo mas basico hasta lo mas complejo
 
 proyecto integrador de las 3 tecnologias
 
-por lo general se hace un ecommerce
+por lo general se hace un ecommerce, ya sea de libros o de remeras
 
 -javascript: variables, constantes, condicionales, ciclos for, while, do while, 
 funciones (con nombre, argumentos (CUANDO LO INVOCO) o parametros (cuando creo la funcion))
@@ -47,3 +47,16 @@ fk o foreign key es relacionar tablas
 normalizacion de bases de datos es un proceso de sistematizar las bases de datos para evitar la redundancia
 
 javascript es un lenguaje interpretado
+
+11-3
+
+3 modulos:
+desarrollo app
+interfaz grafica
+base de datos lenguaje mysql
+
+document object model (dom)
+
+https://sweetalert2.github.io/
+
+en las bases de datos lo importante es poner los datos pertinentes

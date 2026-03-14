@@ -36,3 +36,11 @@ let msg = "ingrese el monto inicial"
 let montoInicial= prompt(msg)
 msg = "ingrese el monto objetivo"
 let objetivo = prompt(msg)
+
+msg="ingrese un numero entre 1 y 1000"
+let num=prompt(msg)
+if(1<num<1000){
+    alert("la mitad es "+(num/2))
+    alert("el 7% es "+(num*(7/100)))
+    alert("el cuadrado es "+(num**2))
+}

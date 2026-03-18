@@ -2,7 +2,7 @@ let cantidad = Number(prompt("ingrese cuantas notas")),
 total=0,i=1
 for(;i<=cantidad;i++){
     let nota = Number(prompt(`nota ${i}`))
-    while(nota>10||nota<1){
+    while(nota>10||nota<1||isNaN(nota)){
         
         nota=Number(prompt(`ingrese la nota n°${i}. nota ingresada incorrectamente`))
     }

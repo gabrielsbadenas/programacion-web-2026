@@ -45,6 +45,24 @@ seal:"red",
 polychrome:true
 }
 console.log(card)
+function Carta(suit,rank,seal,polychrome){
+    this.suit=suit,
+    this.rank=rank,
+    this.seal=seal,
+    this.polychrome=polychrome
+    this.addPolychrome = function(){
+        this.polychrome=true
+    }
+    this.increaseRank = function(newRank){
+        this.rank=newRank
+    }
+    this.changeSuit = function(newSuit){
+        this.suit=newSuit
+    }
+    this.showCardInfo = function(){
+        console.log(`La carta es ${this.rank} de ${this.suit}, con sello ${this.seal} y polícroma: ${this.polychrome}`)
+    }
+}
 
 //declarar objetos con una funcion constructora
 //nos permite crear objetos con las mismas propiedades y metodos
@@ -53,7 +71,7 @@ function ObraLiteraria(tituloI,autorI,precio){
     this.precio=precio,
     this.autor=autorI
     //metodos son funciones con dominio restringido
-    this.mostrarDatosLibro(){
+    this.mostrarDatosLibro = function(){
         console.log(`El libro ${this.titulo} del autor ${this.autor} tiene un precio de ${this.precio}`)
     }
 }

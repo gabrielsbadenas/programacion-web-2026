@@ -63,13 +63,14 @@ function Carta(suit,rank,seal,polychrome){
         console.log(`La carta es ${this.rank} de ${this.suit}, con sello ${this.seal} y polícroma: ${this.polychrome}`)
     }
 }
-
+let card1 = new Carta("diamonds","three","blue",false)
 //declarar objetos con una funcion constructora
 //nos permite crear objetos con las mismas propiedades y metodos
-function ObraLiteraria(tituloI,autorI,precio){
-    this.titulo=tituloI,
-    this.precio=precio,
+function ObraLiteraria(tituloI,autorI,precio,id){
+    this.titulo=tituloI
+    this.precio=precio
     this.autor=autorI
+    this.ISBN=id
     //metodos son funciones con dominio restringido
     this.mostrarDatosLibro = function(){
         console.log(`El libro ${this.titulo} del autor ${this.autor} tiene un precio de ${this.precio}`)
@@ -78,3 +79,30 @@ function ObraLiteraria(tituloI,autorI,precio){
 //instanciar un objeto: llamar a la funcion constructora y darle valores
 //utilizar la palabra reservada "new"
 let obra1 = new ObraLiteraria("aleph obra literaria","jorge luis borges",3000)
+
+class Joker{
+    constructor(number,name,chips,mult,
+        modifiers,// Base,Foil(+50 Chips),Holographic(+10 Mult),Polychrome(X1.5 Mult),Negative(+1Jokerslot)
+        cost,type,activation,unlockRequirement,
+    ){
+        this.number=number,
+        this.name=name,
+        this.chips=chips,
+        this.mult=mult,
+        this.modifiers=modifiers,
+        this.cost=cost,
+        this.type=type,
+        this.activation=activation,
+        this.unlockRequirement=unlockRequirement
+    }
+}
+function cargarLibro(){
+    let titulo=prompt("Ingrese el titulo del libro"),
+    autor=prompt("Ingrese el autor del libro"),
+    precio=Number(prompt("Ingrese el precio del libro"),
+    id=Math.floor(Math.random()*1000000000000)),
+    libroNuevo=new ObraLiteraria(titulo,autor,precio,id)
+    libroNuevo.mostrarDatosLibro()
+}
+//una clase con al menos 3 o 4 atributos, uno de ellos tiene que ser id y con al menos un metodo. 
+// instanciarlo al menos 6 veces.

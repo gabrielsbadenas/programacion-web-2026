@@ -81,21 +81,44 @@ function ObraLiteraria(tituloI,autorI,precio,id){
 let obra1 = new ObraLiteraria("aleph obra literaria","jorge luis borges",3000)
 
 class Joker{
-    constructor(number,name,chips,mult,
-        modifiers,// Base,Foil(+50 Chips),Holographic(+10 Mult),Polychrome(X1.5 Mult),Negative(+1Jokerslot)
-        cost,type,activation,unlockRequirement,
+    constructor(number,
+        name,
+        //chips,
+        //mult,
+        //modifiers,// Base,Foil(+50 Chips),Holographic(+10 Mult),Polychrome(X1.5 Mult),Negative(+1Jokerslot)
+        cost,
+        type,
+        activation,
+        unlockRequirement,
     ){
-        this.number=number,
+        this.number=number,//id
         this.name=name,
-        this.chips=chips,
-        this.mult=mult,
-        this.modifiers=modifiers,
+        //this.chips=chips,
+        //this.mult=mult,
+        //this.modifiers=modifiers,
         this.cost=cost,
         this.type=type,
         this.activation=activation,
         this.unlockRequirement=unlockRequirement
     }
+    showJokerInfo(){
+        console.log(`El joker ${this.name} tiene un costo de ${this.cost} chips, 
+            es de tipo ${this.type}, se activa ${this.activation} y se desbloquea 
+            con ${this.unlockRequirement}`)
+    }
 }
+let instancia1 = new Joker(1,"Joker de la suerte",100,"Base","Al inicio de cada ronda","Ganar 10 rondas"),
+instancia2 = new Joker(2,"Joker de la fortuna",150,"Foil","Al eliminar a un oponente","Ganar 20 rondas"),
+instancia3 = new Joker(3,"Joker de la riqueza",200,"Holographic","Al recolectar 100 chips","Ganar 30 rondas"),
+instancia4 = new Joker(4,"Joker de la abundancia",250,"Polychrome","Al recolectar 200 chips","Ganar 40 rondas"),
+instancia5 = new Joker(5,"Joker de la prosperidad",300,"Negative","Al recolectar 500 chips","Ganar 50 rondas"),
+instancia6 = new Joker(6,"Joker de la opulencia",350,"Base","Al recolectar 1000 chips","Ganar 100 rondas")
+instancia1.showJokerInfo()
+instancia2.showJokerInfo()
+instancia3.showJokerInfo()
+instancia4.showJokerInfo()
+instancia5.showJokerInfo()
+instancia6.showJokerInfo()
 function cargarLibro(){
     let titulo=prompt("Ingrese el titulo del libro"),
     autor=prompt("Ingrese el autor del libro"),

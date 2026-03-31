@@ -35,10 +35,10 @@ instancia5 = new Joker(5,"Gluttonous",5,"+m","on scored","from start")
 
 let jokers = [instancia1,instancia2,instancia3,instancia4,instancia5]
 
-//filter devuelve un array
+//filter devuelve un array, aunque sea vacio
 let abundancia = jokers.filter((joker)=> {return joker.cost < 300})
 console.log(abundancia)
-//find devuelve el primero, o sea uno solo
+//find devuelve el primero, o sea uno solo. sino lo encuentra devuelve undefined
 let prosperidad = jokers.find((joker)=> {return joker.name === "Joker de la prosperidad"})
 console.log(prosperidad)
 //si pongo las llaves en la arrow function tengo que usar return.

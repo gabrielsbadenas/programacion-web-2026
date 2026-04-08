@@ -45,6 +45,13 @@ function menuInteractivo(){
             opcion3: buscar por nombre,
             opcion 4: buscar por elixir,
             opcion 5: buscar por rareza,
+            opcion 6: subir de nivel,
+            opcion 7: eliminar por id,
+            opcion 8: buscar por rareza o nombre,
+            opcion 9: ordenar por elixir,
+            opcion 10: ordenar por nombre,
+            opcion 11: agregar al carrito,
+            opcion 12: calcular el total del carrito,
             opcion0: cerrar
             `)
     switch(opcion){
@@ -65,7 +72,25 @@ function menuInteractivo(){
         break
         case "6":
             actualizarNivel(deck)
-            break
+        break
+        case "7":
+            eliminarPorID(deck)
+        break
+        case "8":
+            buscarPorRarezaOnombre()
+        break
+        case "9":
+            ordenarPorElixir(deck)
+        break
+        case "10":
+            ordenarPorNombre(deck)
+        break
+        case "11":
+            agregarAlCarrito(carrito)
+        break
+        case "12":
+            calcularTotal(carrito)
+        break
         case "0":
             seguir=false
             break
@@ -105,7 +130,9 @@ function eliminarPorID(array){
     return cartaEliminada
 }
 
-function buscarPorRarezaOnombre(rareza,nombre){
+function buscarPorRarezaOnombre(){
+    const rareza = prompt("ingrese la rareza")
+    const nombre = prompt("ingrese el nombre")
     const cartaEncontrada = deck.find((carta) => 
         {return carta.rareza.toLowerCase().includes(rareza.toLowerCase()) || 
             carta.nombre.toLowerCase().includes(nombre.toLowerCase());});

@@ -38,6 +38,7 @@ function validarNumero(mensaje){
 }
 function crearProfesor(){
     //usar while para validar que el numero sea correcto y no un valor cualquiera, que sea positivo
+    //tambien se puede usar profesores.length+1
     let DNI = validarNumero("Ingrese el DNI del profesor");
     let nombre = prompt("Ingrese el nombre del profesor");
     let materia = prompt("Ingrese la materia que dicta el profesor");
@@ -64,9 +65,32 @@ function buscarProfesorPorDNI(){
 }
 function buscarProfesoresPorMateria(){
     let materia = prompt("Ingrese la materia que desea buscar");
-    const profesoresEncontrados = profesores.filter(profesor => profesor.materia.toLowerCase() === materia.toLowerCase());
+    const profesoresEncontrados = profesores.filter(profesor => 
+        {return profesor.materia.toLowerCase() === materia.toLowerCase();});
     if(profesoresEncontrados.length > 0){
         profesoresEncontrados.forEach(profesor => profesor.mostrarProfesor());
     } else {
         console.log("No se encontraron profesores que dictan esa materia");
     }
+}
+
+function eliminarPorID(array){
+    mostrarProfesores();
+    let idEliminar = parseInt(prompt("Ingrese el DNI del profesor que desea eliminar"));
+    console.log(idEliminar)
+    let profesorEliminado = array.find(profesor=>profesor.DNI === idEliminar)
+    if(profesorEliminado==undefined){
+        console.log("No se encontró un profesor con ese DNI");
+        return undefined
+    }
+    
+    let indice = array.indexOf(idEliminar)
+    array.splice(indice,1);
+    return profesorEliminado
+}
+function buscarPorMateriaYnombre(materia,nombre){
+    const profesorEncontrado = profesores.find((profesor) => 
+        {return profesor.materia.toLowerCase().includes(materia.toLowerCase()) || 
+            profesor.nombre.toLowerCase().includes(nombre.toLowerCase());});
+    return profesorEncontrado;
+}

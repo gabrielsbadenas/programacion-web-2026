@@ -184,3 +184,4 @@ function calcularTotal(carrito){
     console.log("esa jugada sale",total,"elixir")
     return total
 }
+function finalizarCompra

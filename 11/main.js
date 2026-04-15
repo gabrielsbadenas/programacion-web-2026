@@ -52,6 +52,7 @@ function menuInteractivo(){
             opcion 10: ordenar por nombre,
             opcion 11: agregar al carrito,
             opcion 12: calcular el total del carrito,
+            opcion 13: finalizar compra,
             opcion0: cerrar
             `)
     switch(opcion){
@@ -91,9 +92,12 @@ function menuInteractivo(){
         case "12":
             calcularTotal(carrito)
         break
+        case "13":
+            finalizarCompra(carrito)
+        break
         case "0":
             seguir=false
-            break
+        break
     }
 }while(seguir)
 }
@@ -184,4 +188,14 @@ function calcularTotal(carrito){
     console.log("esa jugada sale",total,"elixir")
     return total
 }
-function finalizarCompra
+function finalizarCompra(arrayCarrito){
+    if(arrayCarrito.length>=1){
+        let precioFinal = calcularTotal(arrayCarrito)
+        console.log(`el total gastado es ${precioFinal}`)
+        arrayCarrito=[]
+        return arrayCarrito
+        
+    }else{
+        console.log("no hay cartas en tu compra")
+    }
+}

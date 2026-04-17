@@ -11,6 +11,7 @@ class Carta{
         this.nivel++
     }
 }
+let carrito = []
 const deck = [
     new Carta(1,3,"princesa",15,"legendaria"),
     new Carta(2,3,"caballero",14,"comun"),
@@ -93,7 +94,8 @@ function menuInteractivo(){
             calcularTotal(carrito)
         break
         case "13":
-            finalizarCompra(carrito)
+            carrito=finalizarCompra(carrito)
+            console.log(carrito)
         break
         case "0":
             seguir=false
@@ -126,7 +128,7 @@ function eliminarPorID(array){
     let idEliminar = parseInt(prompt("ingrese el id de la carta a eliminar"));
     let cartaEliminada = array.find(carta=>carta.id === idEliminar)
     if(cartaEliminada==undefined){
-        console.log("No se encontró un profesor con ese DNI");
+        console.log("No se encontró una carta con ese id");
         return undefined
     }
     let indice = array.indexOf(cartaEliminada)
@@ -165,7 +167,6 @@ function ordenarPorNombre(cartas){
     });
     console.log(ordenadoAZ)
 }
-const carrito = []
 function agregarAlCarrito(carrito){
     mostrarCatalogo(deck)
     let current = 1

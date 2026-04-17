@@ -6,11 +6,13 @@ class Carta{
         this.nombre=nombre
         this.nivel=nivel
         this.rareza=rareza
+        this.stock=20
     }
     levelUp(){
         this.nivel++
     }
 }
+
 let carrito = []
 const deck = [
     new Carta(1,3,"princesa",15,"legendaria"),
@@ -199,4 +201,48 @@ function finalizarCompra(arrayCarrito){
     }else{
         console.log("no hay cartas en tu compra")
     }
+}
+//clase 12
+function buscarPorIdNombre(array){
+    let valorEliminar = prompt("ingrese el id o nombre de la carta que desea")
+    while(valorEliminar.trim().length==0){
+        valorEliminar=prompt("ingreso vacio o incorrecto. ingrese el id o nombre de la carta que desea")
+    }
+    //dejo los nombres de variable tal cual porque es solo interno
+    let libroEliminar=array.find(book=>book.id==valorEliminar||book.nombre.toUpperCase()==valorEliminar.toUpperCase())
+    return libroEliminar
+}
+function eliminarLibroCarrito(arrayCarrito){
+    mostrarCarrito(arrayCarrito)
+    let elementocarritoeliminar=buscarPorIdNombre(arrayCarrito)
+    if(elementocarritoeliminar==undefined){
+        console.log("la carta seleccionada no existe en el carrito")
+    }
+    else{
+        let index=arrayCarrito.indexOf(elementocarritoeliminar)
+        arrayCarrito.splice(index,1)
+        mostrarCarrito(arrayCarrito)
+    }
+}
+function actualizarAlgo(arrayStock){
+    let elementoActualizar = buscarPorIdNombre(arrayStock)
+    if(elementoActualizar==undefined){
+        console.log("esa carta no existe")
+    }else{
+        let atributoActualizar = prompt("ingrese el atributo que desea modificar")
+        for(let prop in elementoActualizar){
+            console.log(prop)
+            console.log(elementoActualizar[prop])
+            if (prop==atributoActualizar){
+                let nuevoValor=Number(prompt(`ingrese un nuevo valor en ${prop}`))
+                elementoActualizar[prop]=nuevoValor
+                console.log(elementoActualizar[prop])
+            }
+        }
+        console.log(elementoActualizar)
+    }
+}
+function actualizarStock(){
+    let stockAct=Number(prompt("ingrese la cantidad de stock que desea sumar"))
+    this.stock=this.stock+stockAct
 }

@@ -1,5 +1,5 @@
 --crear una tabla con el mismo nombre de mi class constructora y con los mismos atributos. 
-create database clashroyale;
+create database if not exists clashroyale;
 use clashroyale;
 create table carta(
     id int primary key auto_increment,
@@ -19,3 +19,7 @@ insert into carta values (6, 'rocket', 'rara', 6, 14, 10);
 insert into carta values ( 7,'goblin barrel', 'epica', 3, 14, 10);
 insert into carta values (8, 'arrows', 'comun', 3, 15, 10);
 --realizar los registros que corresponden con las instanciaciones que hicimos en el proyecto front
+insert into carta(nombre,rareza,elixir,nivel,stock) values 
+("flechas","comun",3,15,10),
+(),
+(),

@@ -1,3 +1,4 @@
+//no dejar que se agreguen dos productos con el mismo id
 //indispensable
 class Carta{
     constructor(id,elixir,nombre,nivel,rareza){

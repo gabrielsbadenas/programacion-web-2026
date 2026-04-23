@@ -12,6 +12,10 @@ class Carta{
     levelUp(){
         this.nivel++
     }
+    actualizarStock(){
+        let stockAct=Number(prompt("ingrese la cantidad de stock que desea sumar"))
+        this.stock=this.stock+stockAct
+    }
 }
 
 let carrito = []
@@ -25,6 +29,7 @@ const deck = [
     new Carta(7,3,"goblin barrel",14,"epica"),
 ]
 deck.push(new Carta(8,3,"arrows",15,"comun"))
+
 function add2deck(cartas){
     let nombre = prompt("ingresa el nombre de la carta")
     let elixir = Number(prompt("ingresa cuanto elixir tiene"))
@@ -35,11 +40,13 @@ function add2deck(cartas){
     cartas.push(carta)
     return carta
 }
+
 function mostrarCatalogo(catalogo){
     for (const element of catalogo) {
         console.log(element)
     }
 }
+
 function menuInteractivo(){
     let seguir=true
     do{
@@ -82,7 +89,7 @@ function menuInteractivo(){
             eliminarPorID(deck)
         break
         case "8":
-            buscarPorRarezaOnombre()
+            buscarPorRarezaOnombre(deck)
         break
         case "9":
             ordenarPorElixir(deck)
@@ -118,12 +125,14 @@ function buscarPorElixir(cartas){
     const elixir = Number(prompt("ingrese la cantidad de elixir"))
     const lista = cartas.filter(elemento=>elemento.elixir===elixir)
     console.log(lista)
+    mostrarCatalogo(lista)
     return lista
 }
 function buscarPorRareza(cartas){
     const rareza = prompt("ingrese la rareza")
     const lista = cartas.filter(elemento=>elemento.rareza===rareza)
     console.log(lista)
+    mostrarCatalogo(lista)
     return lista
 }
 function eliminarPorID(array){
@@ -139,7 +148,7 @@ function eliminarPorID(array){
     return cartaEliminada
 }
 
-function buscarPorRarezaOnombre(){
+function buscarPorRarezaOnombre(deck){
     const rareza = prompt("ingrese la rareza")
     const nombre = prompt("ingrese el nombre")
     const cartaEncontrada = deck.find((carta) => 
@@ -156,10 +165,12 @@ function actualizarNivel(cartas){
     carta.levelUp()
     mostrarCatalogo(cartas)
 }
+
 function ordenarPorElixir(cartas){
     cartas.sort((a,b)=>a.elixir-b.elixir)
     mostrarCatalogo(cartas)
 }
+
 function ordenarPorNombre(cartas){
     let ordenadoAZ=cartas.toSorted((a,b) => {
         const nameA = a.nombre.toUpperCase(); // ignore upper and lowercase
@@ -170,7 +181,9 @@ function ordenarPorNombre(cartas){
     });
     console.log(ordenadoAZ)
 }
+
 function agregarAlCarrito(carrito){
+    //validar con some que no haya cartas con ese id
     mostrarCatalogo(deck)
     let current = 1
     while(current!=0){
@@ -184,6 +197,7 @@ function agregarAlCarrito(carrito){
     }
     return carrito
 }
+
 function calcularTotal(carrito){
     let total = 0
     for (const element of carrito) {
@@ -192,6 +206,7 @@ function calcularTotal(carrito){
     console.log("esa jugada sale",total,"elixir")
     return total
 }
+
 function finalizarCompra(arrayCarrito){
     if(arrayCarrito.length>=1){
         let precioFinal = calcularTotal(arrayCarrito)

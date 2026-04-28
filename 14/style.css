@@ -1,0 +1,29 @@
+body{
+    background-color: aqua;
+    color:blue;
+    font-family: monospace;
+    font-size:40px;
+}
+li{
+    background-color: white;
+}
+#argentina{
+    color: rgb(0, 217, 255);
+}
+#brasil{
+    background-color: rgb(229, 255, 0);
+    color:green;
+}
+#uruguay{
+    background-color: rgb(0, 217, 255);
+    color: white;
+}
+#chile{
+    background-color: rgb(255, 0, 0);
+}
+/*
+la jerarquia de los selectores es la siguiente:
+tag
+.class
+#id
+*/

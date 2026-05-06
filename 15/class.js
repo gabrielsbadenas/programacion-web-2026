@@ -30,29 +30,6 @@ const deck = [
 
 deck.push(new Carta(8,3,"arrows",15,"comun","arrows.png"))
 
-function imprimirCatalogo(deck){
-    
-        let row = document.createElement("div")
-        row.className("row")
-        
-        let body = document.querySelector("body")
-    for (const element of deck) {
-        let card = document.createElement("div")
-        card.innerHTML = `
-<div id="${element.id}" class="card col-3" style="width: 18rem;">
-  <img src="../img/${element.imagen}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">${element.nombre}</h5>
-    <p class="card-text">${element.rareza}</p>
-    <a href="#" class="btn btn-primary">${element.elixir} elixir</a>
-  </div>
-</div>
-`
-        console.log(card.innerHTML)
-        row.appendChild(card)
-    }
-    body.appendChild(row)
-}
 function imprimirCatalogo(array){
     let container = document.createElement("div")
     let body = document.querySelector("body")

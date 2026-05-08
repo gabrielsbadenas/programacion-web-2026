@@ -36,49 +36,59 @@ function imprimirCatalogo(array){
         containerLibros.append(libroNuevoDiv)
     })
 }
-function buscarTituloAutor(valorBuscar, array){
-    
-    let coincidencias = array.filter((elem)=> elem.titulo.toLowerCase().includes(valorBuscar.toLowerCase() )  ||  elem.autor.toLowerCase().includes(valorBuscar.toLowerCase()))
+function filtrarPorTituloYAutor(valorBuscar, array){
+    const texto = valorBuscar.trim().toLowerCase()
+    if(!texto) return array.slice()
 
-    if(coincidencias.length < 1){
-        console.log(`Para ${valorBuscar} no hay coincidencias ni en el titulo ni en el autor`)
-        //TENDRÏA QUE PNESAR QUE QUIERO MOSTRAR CUANDO NO HAY COINCIDENCIAS
+    return array.filter((elem)=>
+        elem.titulo.toLowerCase().includes(texto) ||
+        elem.autor.toLowerCase().includes(texto)
+    )
+}
+
+function ordenarArray(array, opcion){
+    const ordenado = array.slice()
+
+    switch(opcion){
+        case "1":
+            return ordenado.sort((a, b)=> b.precio - a.precio)
+        case "2":
+            return ordenado.sort((a, b)=> a.precio - b.precio)
+        case "3":
+            return ordenado.sort((a, b)=> a.titulo.localeCompare(b.titulo))
+        case "4":
+            return ordenado.sort((a, b)=> b.titulo.localeCompare(a.titulo))
+        default:
+            return ordenado
     }
-    imprimirCatalogo(coincidencias)
 }
 
-function ordenarMayorMenorPrecio(array){
-    //copie  array original con método concat
-    let clonBiblioteca = array.concat()
-    clonBiblioteca.sort((elem1, elem2)=> elem2.precio - elem1.precio)
-    imprimirCatalogo(clonBiblioteca)
-}
-function ordenarMenorMayorPrecio(array){
-    let ordenadoMenorMayor = array.toSorted((a,b)=> a.precio - b.precio)
-    imprimirCatalogo(ordenadoMenorMayor)
-}
-//llamado de functipons: 
-imprimirCatalogo(biblioteca)
+function actualizarCatalogo(){
+    const textoBusqueda = buscador.value
+    const resultadosFiltrados = filtrarPorTituloYAutor(textoBusqueda, biblioteca)
+    const resultadosOrdenados = ordenarArray(resultadosFiltrados, selectOrden.value)
 
+    if(resultadosOrdenados.length === 0){
+        containerLibros.innerHTML = `
+            <div class="col-12 text-center mt-4">
+                <p class="text-warning">No hay resultados para "${textoBusqueda}"</p>
+            </div>`
+        return
+    }
 
-//eventos
+    imprimirCatalogo(resultadosOrdenados)
+}
+
+// llamado inicial
+actualizarCatalogo()
+
+// eventos
 buscador.addEventListener("input", ()=>{
-    //pruebo si ese evento está pegando
     console.log(`Se activo el evento: ${buscador.value}`)
-    buscarTituloAutor(buscador.value, biblioteca)
+    actualizarCatalogo()
 })
 selectOrden.addEventListener("change",()=>{
     console.log("El evento change está funcionando")
-    console.log(`La opción elegida tien valor ${selectOrden.value}`)
-    switch(selectOrden.value){
-        case "0":
-            imprimirCatalogo(biblioteca)
-        break
-        case "1":
-            ordenarMayorMenorPrecio(biblioteca)
-        break
-        case "2":
-            ordenarMenorMayorPrecio(biblioteca)
-        break
-    }
+    console.log(`La opción elegida tiene valor ${selectOrden.value}`)
+    actualizarCatalogo()
 })

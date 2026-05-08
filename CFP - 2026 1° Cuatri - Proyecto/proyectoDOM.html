@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Iconos-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <!--BS estilos-->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Mis libros 👌</title>
+</head>
+<body class="">
+
+    <!--Menu Mis Libros-->  
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./paginas/index.html" target="_blank">Mis Libros</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon "></span>
+            </button>
+      
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto mx-1">
+                <form class="d-flex mx-3">
+                    <input id="buscador"class="form-control me-2 " placeholder="Qué estás buscando?" aria-label="Search" maxlength="30">
+                    
+                </form> 
+                <!--trigger del modal Agregar Libro-->
+                <button id="" data-bs-toggle="modal" data-bs-target="#modalAgregarLibro" class="btn btn-success">Agregar libro</button>
+                <button id="btnModoOscuro" class="btn btn-success mx-3">Dark</button>  
+                </ul>
+                <ul>
+                <select id="selectOrden" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected value="0">Ordenar por:</option>
+                    <option value="1">Mayor a menor</option>
+                    <option value="2">Menor a mayor</option>
+                    <option value="3">Alfabeticamente Titulo A - Z</option>
+                    <option value="4">Alfabeticamente Titulo Z - A</option>
+                    
+                </select>
+                </ul>
+                <ul style="list-style: none;"className="navbar-nav me-auto">  
+                    <li className="nav-item " >
+                        <!--trigger o gatillo de un modal-->
+                        <button id="botonCarrito" class="btn btn-secondary"><i class="fas fa-shopping-cart fa-1x"></i></button>
+                    </li>
+                </ul>
+            
+            </div>
+    
+        </div> 
+    </nav>
+
+    <h2 id="tituloPrincipal" class="text-success text-center"></h2>
+
+    <div class="container-fluid">
+        <div id="containerLibros" class="row">
+        </div>
+    </div>
+    <!--Boceto de card para re utilizar-->
+    <!-- <div id="" class="card" style="width: 18rem;">
+            <img class="card-img-top img-fluid" style="height: 200px;"src="assets/AlephBorges.jpg" alt="Imagen del libro aleph">
+            <div class="card-body">
+                <h4 class="card-title">Aleph </h4>
+                <p>Autor: Borges</p>
+                <p class="precio">Precio: $800</p>
+                
+            <button class="btn btn-success" id=""data-bs-toggle="tooltip" data-bs-placement="left">Agregar al carrito</button>
+            </div>
+    </div>  -->
+
+    <!-- <div id="" class="card bg-dark" style="width: 18rem;">
+            <img class="card-img-top img-fluid" style="height: 200px;"src="assets/CienSoledadMarquez.jpg" alt="Imagen del libro aleph">
+            <div class="card-body">
+                <h4 class="card-title">Cien años de soledad </h4>
+                <p class="text-light">Autor: Garcia Marquez</p>
+                <p class="precio">Precio: $4500</p>
+                
+            <button class="btn btn-success" id=""data-bs-toggle="tooltip" data-bs-placement="left">Agregar al carrito</button>
+            </div>
+    </div>  -->
+
+    <script src="class.js"></script>
+    <script src="proyectoDOM.js"></script>
+    <!--BOOTSTRAP JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

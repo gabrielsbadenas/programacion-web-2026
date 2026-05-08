@@ -1,4 +1,4 @@
-let array = []
+let array = ['https://thereal23.github.io/590295810358705700000/']
 for (let index = 0; index < 100; index++) {
     array.push(2**index)
 }

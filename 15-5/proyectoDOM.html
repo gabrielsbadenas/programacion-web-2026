@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Iconos-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <!--BS estilos-->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Mis libros 👌</title>
+</head>
+<body class="">
+
+    <!--Menu Mis Libros-->  
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./paginas/index.html" target="_blank">Mis Libros</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon "></span>
+            </button>
+      
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto mx-1">
+                <form class="d-flex mx-3">
+                    <input id="buscador"class="form-control me-2 " placeholder="Qué estás buscando?" aria-label="Search" maxlength="30">
+                    
+                </form> 
+                <!--trigger del modal Agregar Libro-->
+                <button id="" data-bs-toggle="modal" data-bs-target="#modalAgregarLibro" class="btn btn-success">Agregar libro</button>
+                <button id="btnModoOscuro" class="btn btn-success mx-3" >Dark</button>  
+                </ul>
+                <ul>
+                <select id="selectOrden" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected value="0">Ordenar por:</option>
+                    <option value="1">Mayor a menor</option>
+                    <option value="2">Menor a mayor</option>
+                    <option value="3">Alfabeticamente Titulo A - Z</option>
+                    <option value="4">Alfabeticamente Titulo Z - A</option>
+                    
+                </select>
+                </ul>
+                <ul style="list-style: none;"className="navbar-nav me-auto">  
+                    <li className="nav-item " >
+                        <!--trigger o gatillo de un modal-->
+                        <button id="botonCarrito" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalCarrito"><i class="fas fa-shopping-cart fa-1x"></i></button>
+                    </li>
+                </ul>
+            
+            </div>
+    
+        </div> 
+    </nav>
+
+    <h2 id="tituloPrincipal" class="text-success text-center"></h2>
+
+    <div class="container-fluid">
+        <div id="containerLibros" class="row">
+        </div>
+    </div>
+
+    <!--Modal Agregar Libro-->
+    <div class="modal fade" id="modalAgregarLibro" tabindex="-1" aria-labelledby="modalAgregarLibro" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Agregar Libro al stock</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="modal-body">
+            <!--Formulario-->
+            <form id="formCargarLibro" class="my-4">
+              <div class="mb-3">
+                <label for="titulo" class="form-label">Titulo</label>
+                <input type="text" class="form-control" id="tituloInput" name="tituloLibro" aria-describedby="titulo">
+                
+              </div>
+              <div class="mb-3">
+                <label for="autor" class="form-label">Autor</label>
+                <input type="text" class="form-control" id="autorInput" aria-describedby="autor">
+                
+              </div>
+              <div class="mb-3">
+                <label for="precio" class="form-label">Precio:</label>
+                <input type="number" max="10000" class="form-control" id="precioInput" aria-describedby="precio">
+                
+              </div>
+              <div class="mb-3">
+                <label for="stock" class="form-label">Stock:</label>
+                <input type="text" class="form-control" id="stockInput" aria-describedby="stock">
+                
+              </div>
+              
+          </form>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="text" id="guardarLibroBtn" class="btn btn-success" data-bs-dismiss="modal">Guardar Libro</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fin modal agregar libro-->
+
+      <!--Modal Carrito-->
+    <div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="modalCarrito" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Carrito de Compras</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="modalBodyCarrito">
+            
+          </div>
+          <div class="row ml-ato">
+            <p class="text-center" id="totalCarrito"></p>
+          </div>
+          <div class="modal-footer">
+            
+            
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button"  class="btn btn-success" id="botonFinalizarCompra">Finalizar Compra</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fin modal carrito-->
+    <script src="class.js"></script>
+    <script src="proyectoDOM.js"></script>
+    <!--BOOTSTRAP JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -186,7 +186,7 @@ function imprimirCarrito(array) {
       carta.reducirCantidad();
       document.getElementById(`cantidad${carta.id}`).innerHTML =
         `Cantidad: ${carta.cantidad}`;
-        
+
       document.getElementById(`subtotal${carta.id}`).innerHTML =
         `Subtotal: ${carta.cantidad * carta.elixir} elixir`;
     });
@@ -196,17 +196,17 @@ function imprimirCarrito(array) {
       btnEliminar.onclick = function () {
         const card = document.getElementById(`cardCarrito${carta.id}`);
         if (card) card.remove();
-        console.log("antes",carrito)
-        borrarCarta(carta,carrito)
-        
-        console.log("despues",carrito)
+        console.log("antes", carrito);
+        borrarCarta(carta, carrito);
+        console.log("despues", carrito);
       };
     }
   });
 }
-function borrarCarta(carta,array){
-        let index = carrito.indexOf(carta)
-        array.splice(index,1)
+
+function borrarCarta(carta, array) {
+  let index = carrito.indexOf(carta);
+  array.splice(index, 1);
 }
 imprimirCatalogo(deck);
 

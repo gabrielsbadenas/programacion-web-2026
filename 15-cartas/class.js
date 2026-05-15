@@ -1,12 +1,12 @@
 class Carta{
-    constructor(id,elixir,nombre,nivel,rareza,imagen){
+    constructor(id,elixir,nombre,nivel,rareza,imagen,stock=20){
         this.id=id
         this.elixir=elixir
         this.nombre=nombre
         this.nivel=nivel
         this.rareza=rareza
         this.imagen=imagen
-        this.stock=20
+        this.stock=stock
     }
     levelUp(){
         this.nivel++

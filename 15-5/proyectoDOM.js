@@ -1,201 +1,190 @@
-//FUNCION que reccorre el array e imprime en eldom todos mis libros
+// Código actualizado para usar la clase Carta en lugar de libros.
+class Carta {
+    constructor(id, elixir, nombre, nivel, rareza, imagen, stock = 20) {
+        this.id = id
+        this.elixir = Number(elixir)
+        this.nombre = nombre
+        this.nivel = Number(nivel)
+        this.rareza = rareza
+        this.imagen = imagen
+        this.stock = Number(stock)
+        this.cantidad=1
+    }
 
-//capturas del DOM
-let containerLibros = document.getElementById("containerLibros")
-let titulo = document.getElementById("tituloPrincipal")
-let buscador = document.getElementById("buscador")
-console.log(buscador)
-let selectOrden = document.getElementById("selectOrden")
-console.log(selectOrden.innerHTML)
-let guardarLibroBtn =document.getElementById("guardarLibroBtn")
-let formAgregarLibro = document.getElementById("formCargarLibro")
-let modalBodyCarrito = document.getElementById("modalBodyCarrito")
-let botonCarrito = document.getElementById("botonCarrito")
-//muestra de ejemplo
-titulo.innerText = "Mis libros 🙌"
-//funciones
+    levelUp() {
+        this.nivel++
+    }
 
-function imprimirCatalogo(array){
-    containerLibros.innerHTML = ""
-    array.forEach((libro)=>{
-        //objetivo del forEach imprimir cada uno de mis libros:
-        //creo un div para cada uno de mis libros
-        let libroNuevoDiv = document.createElement("div")
-        //agregarle una class al nodo
-        libroNuevoDiv.className = "mx-auto my-2 col-12 col-md-6 col-lg-4 col-xl-3 "
-        //a ese div le adjunto el esqueleto de la card
-        libroNuevoDiv.innerHTML = `
-        <div id="${libro.id}" class="card" style="width: 18rem;">
-            <img class="card-img-top img-fluid" style="height: 200px;"src="assets/${libro.imagen}" alt="${libro.titulo} de ${libro.autor} ">
+    actualizarStock() {
+        const stockAct = Number(prompt("Ingrese la cantidad de stock que desea sumar"))
+        if (!isNaN(stockAct)) {
+            this.stock = this.stock + stockAct
+        }
+    }
+}
+
+const carrito = []
+const deck = [
+    new Carta(1, 3, "princesa", 15, "legendaria", "princesa.png"),
+    new Carta(2, 3, "caballero", 14, "comun", "caballero.png"),
+    new Carta(3, 3, "goblin gang", 14, "comun", "gang.png"),
+    new Carta(4, 3, "skeleton army", 14, "epica", "skeletons.png"),
+    new Carta(5, 5, "inferno tower", 14, "rara", "tower.png"),
+    new Carta(6, 6, "rocket", 14, "rara", "rocket.png"),
+    new Carta(7, 3, "goblin barrel", 14, "epica", "barrel.png"),
+]
+
+deck.push(new Carta(8, 3, "arrows", 15, "comun", "arrows.png"))
+
+const containerCartas = document.getElementById("containerLibros")
+const titulo = document.getElementById("tituloPrincipal")
+const buscador = document.getElementById("buscador")
+const selectOrden = document.getElementById("selectOrden")
+const guardarCartaBtn = document.getElementById("guardarCartaBtn")
+const formAgregarCarta = document.getElementById("formCargarCarta")
+const modalBodyCarrito = document.getElementById("modalBodyCarrito")
+const botonCarrito = document.getElementById("botonCarrito")
+
+titulo.innerText = "Mis cartas 🙌"
+
+function imprimirCatalogo(array) {
+    containerCartas.innerHTML = ""
+
+    array.forEach((carta) => {
+        const cartaDiv = document.createElement("div")
+        cartaDiv.className = "mx-auto my-2 col-12 col-md-6 col-lg-4 col-xl-3"
+        cartaDiv.innerHTML = `
+        <div id="${carta.id}" class="card" style="width: 18rem;">
+            <img class="card-img-top img-fluid" style="height: 200px;" src="../img/${carta.imagen}" alt="${carta.nombre}">
             <div class="card-body">
-                <h4 class="card-title">${libro.titulo} </h4>
-                <p>Autor: ${libro.autor}</p>
-                <p class="precio">Precio: $${libro.precio}</p>
-                <p class="stock">Stock: ${libro.stock}</p>
-            <button class="btn btn-success" id="btnAgregar${libro.id}"data-bs-toggle="tooltip" data-bs-placement="left">Agregar al carrito</button>
+                <h4 class="card-title">${carta.nombre}</h4>
+                <p>Rareza: ${carta.rareza}</p>
+                <p class="precio">Elixir: ${carta.elixir}</p>
+                <p class="stock">Stock: ${carta.stock}</p>
+                <button class="btn btn-success" id="btnAgregar${carta.id}" data-bs-toggle="tooltip" data-bs-placement="left">Agregar al carrito</button>
             </div>
-        </div>  `
-        
-        //adjuntar al container este div creado
-        containerLibros.append(libroNuevoDiv)
-        //capturar cada btn de forma unívoca
-        let btnAgregarCarrito = document.getElementById(`btnAgregar${libro.id}`)
-        console.log(btnAgregarCarrito)
-        //pasarle/adjuntar un evento 
-        btnAgregarCarrito.addEventListener("click", function(){
-            //FIJARME SI YA EXISTE EN EL CARRITO, sino existe lo pusheo
-            //si existe, advertir que el libro ya estpa en el carrito. USTEDES DECIDEN QUE HACER
-            carrito.push(libro)
+        </div>`
+
+        containerCartas.append(cartaDiv)
+
+        const btnAgregarCarrito = document.getElementById(`btnAgregar${carta.id}`)
+        btnAgregarCarrito.addEventListener("click", () => {
+            carrito.push(carta)
             console.log(carrito)
         })
     })
 }
-function buscarTituloAutor(valorBuscar, array){
-    
-    let coincidencias = array.filter((elem)=> elem.titulo.toLowerCase().includes(valorBuscar.toLowerCase() )  ||  elem.autor.toLowerCase().includes(valorBuscar.toLowerCase()))
 
-    if(coincidencias.length < 1){
-        console.log(`Para ${valorBuscar} no hay coincidencias ni en el titulo ni en el autor`)
-        //TENDRÏA QUE PNESAR QUE QUIERO MOSTRAR CUANDO NO HAY COINCIDENCIAS
+function buscarNombreRareza(valorBuscar, array) {
+    const coincidencias = array.filter((elem) =>
+        elem.nombre.toLowerCase().includes(valorBuscar.toLowerCase()) ||
+        elem.rareza.toLowerCase().includes(valorBuscar.toLowerCase())
+    )
+
+    if (coincidencias.length < 1) {
+        console.log(`Para ${valorBuscar} no hay coincidencias ni en el nombre ni en la rareza`)
     }
+
     imprimirCatalogo(coincidencias)
 }
 
-function ordenarMayorMenorPrecio(array){
-    //copie  array original con método concat
-    let clonBiblioteca = array.concat()
-    clonBiblioteca.sort((elem1, elem2)=> elem2.precio - elem1.precio)
-    imprimirCatalogo(clonBiblioteca)
+function ordenarMayorMenorElixir(array) {
+    const ordenado = array.toSorted((a, b) => b.elixir - a.elixir)
+    imprimirCatalogo(ordenado)
 }
-function ordenarMenorMayorPrecio(array){
-    let ordenadoMenorMayor = array.toSorted((a,b)=> a.precio - b.precio)
-    imprimirCatalogo(ordenadoMenorMayor)
+
+function ordenarMenorMayorElixir(array) {
+    const ordenado = array.toSorted((a, b) => a.elixir - b.elixir)
+    imprimirCatalogo(ordenado)
 }
-function ordenarPorTituloAZ(array){
-    //método toSorted hace lo mismo que el sort y no es destructivo
-    let ordenadoAZ = array.toSorted((a, b)=>{
-        if(a.titulo < b.titulo){
-            return -1
-        }
-        if(a.titulo > b.titulo){
-            return 1
-        }
-        return 0
-    })
-    
+
+function ordenarPorNombreAZ(array) {
+    const ordenadoAZ = array.toSorted((a, b) => a.nombre.localeCompare(b.nombre))
     imprimirCatalogo(ordenadoAZ)
 }
-function agregarLibro(array){
-    let titulo = document.getElementById("tituloInput")
-    let precio = document.getElementById("precioInput")
-    let stock = document.getElementById("stockInput")
-    let autor = document.getElementById("autorInput")
 
-    //array.length
-    let libroNuevo = new Libro(array.length + 1, autor.value, titulo.value, precio.value, stock.value,"libroNuevo.jpg")
-    array.push(libroNuevo)
-    //resear de dos formas, elegir una
-    formAgregarLibro.reset()
-    //vaciar inputs 
-    titulo.value = ""
-    autor.value = ""
-    stock.value =""
-    precio.value = ""
-}
-function agregarLibroForm(array){
-    //muestra de consola de form y cómo capturar un input
-    console.log(formAgregarLibro)
-    console.log(formAgregarLibro[0])
-    console.log(formAgregarLibro[0].value)
-    console.log(formAgregarLibro.elements["tituloLibro"])
-    console.log(formAgregarLibro.elements["tituloLibro"].value)
-    let libroNuevo = new Libro(array.length +1, formAgregarLibro[1].value, formAgregarLibro[0].value, formAgregarLibro[2].value, formAgregarLibro[3].value, "libroNuevo.jpg"
+function agregarCartaForm(array) {
+    const nombreInput = document.getElementById("tituloInput")
+    const rarezaInput = document.getElementById("rarezaInput")
+    const nivelInput = document.getElementById("nivelInput")
+    const stockInput = document.getElementById("stockInput")
+    const elixirInput = document.getElementById("elixirInput")
+
+    const cartaNueva = new Carta(
+        array.length + 1,
+        elixirInput.value,
+        nombreInput.value,
+        nivelInput.value,
+        rarezaInput.value,
+        "cartaNueva.png",
+        stockInput.value
     )
-    array.push(libroNuevo)
 
-    //para resear un form
-    formAgregarLibro.reset()
+    array.push(cartaNueva)
+    formAgregarCarta.reset()
 }
-function imprimirCarrito(array){
+
+function imprimirCarrito(array) {
     modalBodyCarrito.innerHTML = ""
-    //FOR EACH PARA CREAR LAS CARDS E IMPRIMIRLAS
-    array.forEach((libro)=>{
 
+    array.forEach((carta) => {
         modalBodyCarrito.innerHTML += `
-        <div class="card border-primary mb-3" id ="cardCarrito${libro.id}" style="max-width: 540px;">
-                 <div class="card-body">
-                        <h4 class="card-title">${libro.titulo}</h4>
-                        <p class="card-text">${libro.autor}</p>
-                        <p class="card-text">Precio unitario $${libro.precio}</p>
-                        
-                         <p class="card-text" id="">Total de unidades</p> 
-                         <p class="card-text" id="">SubTotal </p>
-                         <button class= "btn btn-success" ><i class=""></i>+1</button>
-                         <button class= "btn btn-danger"  ><i class=""></i>-1</button> 
-                         <button class= "btn btn-danger" id="btnEliminar${libro.id}" ><i class="fas fa-trash-alt"></i></button>
-                 
-                         </div>    
-            </div>`
-            //acá es complicado adjuntarle un evento -- dentro del mismo forEach que imprime
+        <div class="card border-primary mb-3" id="cardCarrito${carta.id}" style="max-width: 540px;">
+            <div class="card-body">
+                <h4 class="card-title">${carta.nombre}</h4>
+                <p class="card-text">Rareza: ${carta.rareza}</p>
+                <p class="card-text">Elixir: ${carta.elixir}</p>
+                <p class="card-text">Stock: ${carta.stock}</p>
+                <button class="btn btn-success">+1</button>
+                <button class="btn btn-danger">-1</button>
+                <button class="btn btn-danger" id="btnEliminar${carta.id}"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        </div>`
     })
-    //segundo forEach para pasarle eventos
-    array.forEach((libro)=>{
-        //Voy a adjuntar todos los eventos
-        //adjuntar elemento que elimina del DOM la card
-        let btnEliminar = document.getElementById(`btnEliminar${libro.id}`)
-        btnEliminar.onclick = function(){
-            //elimino SOLAMENTE DEL DOM con el remove --falta del array
-            let card = document.getElementById(`cardCarrito${libro.id}`)
-            card.remove()
-            //eliminar este LibRo del array carrito
+
+    array.forEach((carta) => {
+        const btnEliminar = document.getElementById(`btnEliminar${carta.id}`)
+        if (btnEliminar) {
+            btnEliminar.onclick = function () {
+                const card = document.getElementById(`cardCarrito${carta.id}`)
+                if (card) card.remove()
+            }
         }
-        //sumarUna Unidad
-        //restar una unidad
     })
 }
 
-//llamado de functipons: 
-imprimirCatalogo(biblioteca)
+imprimirCatalogo(deck)
 
-
-//eventos
 buscador.addEventListener("input", () => {
-    const valor = buscador.value.trim().toLowerCase()
-
-    const coincidencias = biblioteca.filter(libro =>
-        libro.titulo.toLowerCase().includes(valor) ||
-        libro.autor.toLowerCase().includes(valor)
-    )
-
-    const ordenado = coincidencias.toSorted((a, b) => a.precio - b.precio)
-
-    imprimirCatalogo(ordenado)
+    const valor = buscador.value.trim()
+    buscarNombreRareza(valor, deck)
 })
-selectOrden.addEventListener("change",()=>{
-    console.log("El evento change está funcionando")
-    console.log(`La opción elegida tien valor ${selectOrden.value}`)
-    switch(selectOrden.value){
+
+selectOrden.addEventListener("change", () => {
+    switch (selectOrden.value) {
         case "0":
-            imprimirCatalogo(biblioteca)
-        break
+            imprimirCatalogo(deck)
+            break
         case "1":
-            ordenarMayorMenorPrecio(biblioteca)
-        break
+            ordenarMayorMenorElixir(deck)
+            break
         case "2":
-            ordenarMenorMayorPrecio(biblioteca)
-        break
+            ordenarMenorMayorElixir(deck)
+            break
         case "3":
-            ordenarPorTituloAZ(biblioteca)
-        break
+            ordenarPorNombreAZ(deck)
+            break
         case "4":
-        break
+            imprimirCatalogo(deck.toSorted((a, b) => b.nombre.localeCompare(a.nombre)))
+            break
     }
 })
-guardarLibroBtn.onclick = ()=>{
-    //array que recibe es nuestro stock
-   agregarLibroForm(biblioteca)
-    imprimirCatalogo(biblioteca)
+
+guardarCartaBtn.onclick = () => {
+    agregarCartaForm(deck)
+    imprimirCatalogo(deck)
 }
-botonCarrito.onclick = function(){
+
+botonCarrito.onclick = function () {
     imprimirCarrito(carrito)
 }

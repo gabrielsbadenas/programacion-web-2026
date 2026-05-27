@@ -99,36 +99,7 @@ function buscarCartaPorID(id, array) {
   const cartaEncontrada = array.find((carta) => carta.id === id);
   return cartaEncontrada;
 }
-function buscarNombreRareza(valorBuscar, array) {
-  const coincidencias = array.filter(
-    (elem) =>
-      elem.nombre.toLowerCase().includes(valorBuscar.toLowerCase()) ||
-      elem.rareza.toLowerCase().includes(valorBuscar.toLowerCase()),
-  );
 
-  if (coincidencias.length < 1) {
-    console.log(
-      `Para ${valorBuscar} no hay coincidencias ni en el nombre ni en la rareza`,
-    );
-  }
-
-  imprimirCatalogo(coincidencias);
-}
-
-function ordenarMayorMenorElixir(array) {
-  const ordenado = array.toSorted((a, b) => b.elixir - a.elixir);
-  imprimirCatalogo(ordenado);
-}
-
-function ordenarMenorMayorElixir(array) {
-  const ordenado = array.toSorted((a, b) => a.elixir - b.elixir);
-  imprimirCatalogo(ordenado);
-}
-
-function ordenarPorNombreAZ(array) {
-  const ordenadoAZ = array.toSorted((a, b) => a.nombre.localeCompare(b.nombre));
-  imprimirCatalogo(ordenadoAZ);
-}
 
 function agregarCartaForm(array) {
   const nombreInput = document.getElementById("tituloInput");
@@ -208,33 +179,61 @@ function borrarCarta(carta, array) {
   let index = carrito.indexOf(carta);
   array.splice(index, 1);
 }
-imprimirCatalogo(deck);
+let resultadosFiltrados = deck;
+
+imprimirCatalogo(resultadosFiltrados);
 
 buscador.addEventListener("input", () => {
   const valor = buscador.value.trim();
-  buscarNombreRareza(valor, deck);
+
+  if (valor === "") {
+    resultadosFiltrados = deck;
+  } else {
+    resultadosFiltrados = deck.filter(
+      (elem) =>
+        elem.nombre.toLowerCase().includes(valor.toLowerCase()) ||
+        elem.rareza.toLowerCase().includes(valor.toLowerCase())
+    );
+  }
+
+  if (resultadosFiltrados.length < 1) {
+    console.log(`Para ${valor} no hay coincidencias`);
+  }
+
+  // Aplicar el ordenamiento actual a los resultados filtrados
+  aplicarOrdenamiento(selectOrden.value, resultadosFiltrados);
 });
 
-selectOrden.addEventListener("change", () => {
-  switch (selectOrden.value) {
+function aplicarOrdenamiento(opcion, array) {
+  switch (opcion) {
     case "0":
-      imprimirCatalogo(deck);
+      imprimirCatalogo(array);
       break;
     case "1":
-      ordenarMayorMenorElixir(deck);
+      const orden1 = array.toSorted((a, b) => b.elixir - a.elixir);
+      imprimirCatalogo(orden1);
       break;
     case "2":
-      ordenarMenorMayorElixir(deck);
+      const orden2 = array.toSorted((a, b) => a.elixir - b.elixir);
+      imprimirCatalogo(orden2);
       break;
     case "3":
-      ordenarPorNombreAZ(deck);
+      const orden3 = array.toSorted((a, b) =>
+        a.nombre.localeCompare(b.nombre)
+      );
+      imprimirCatalogo(orden3);
       break;
     case "4":
-      imprimirCatalogo(
-        deck.toSorted((a, b) => b.nombre.localeCompare(a.nombre)),
+      const orden4 = array.toSorted((a, b) =>
+        b.nombre.localeCompare(a.nombre)
       );
+      imprimirCatalogo(orden4);
       break;
   }
+}
+
+selectOrden.addEventListener("change", () => {
+  aplicarOrdenamiento(selectOrden.value, resultadosFiltrados);
 });
 
 guardarCartaBtn.onclick = () => {

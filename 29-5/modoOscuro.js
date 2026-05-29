@@ -3,10 +3,12 @@ let btnModoOscuro = document.getElementById("btnModoOscuro");
 let dark = JSON.parse(localStorage.getItem("dark"));
 if (dark === null) {
   dark = false;
-} else {
+}
+if(dark){
   document.body.classList.toggle("modoOscuro");
   btnModoOscuro.innerText = "Light";
 }
+
 btnModoOscuro.onclick = () => {
   dark = !dark;
   localStorage.setItem("dark", dark);

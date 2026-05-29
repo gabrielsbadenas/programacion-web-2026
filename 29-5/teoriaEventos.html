@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventos</title>
+</head>
+<body>
+    <!--HTML para ejemplos teoricos-->
+    <div class="">
+        
+        <h5>Tercera forma - Directo HTML</h5>
+        <button id="botonUno" onclick="saludarCFP()">Evento con atributo HTML</button>
+        <br><br>
+        <button ondblclick="console.log(`Tocaste el botón`)">Evento directo desde HTML</button>
+        <div onmouseover="console.log(`Perdiste, no toques!!!`)" style="font-size: 30px; width: 150px;">
+            No tocar etiqueta
+        </div>  
+        <br><br>
+        <h5 id="" class="" onclick="alert(`Toque este h5`)">Segunda forma - Semantica</h5>
+        <input style="border: 1px solid rgb(210, 13, 13)" type="text"id="nombrePersona" value=""placeholder="Ingrese quién sos" >
+        <button id="evento-semantico">Evento con manejador semántico</button><br><br>
+        
+        <h5>Primera forma - Eventos múltiples</h5>
+        <button id="evento-multiple" >Evento con manejador múltiple</button>
+        <br><br><br><br><br><br><br><br><br><br>
+    </div>
+    <script src="teoriaEventos.js"></script>
+</body>
+</html>

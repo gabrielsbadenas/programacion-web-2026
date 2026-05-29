@@ -41,6 +41,20 @@ class Carta {
 
 let carrito = [];
 let deck = [
+];
+
+
+let storedDeck = localStorage.getItem("deck")
+if(storedDeck){
+  bonelessDeck=JSON.parse(storedDeck)
+  let newDeck=[]
+  bonelessDeck.forEach(element => {
+    let newCard = new Carta(element.id,element.elixir,element.nombre,element.nivel,element.rareza,element.imagen,element.stock)
+    newDeck.push(newCard)
+  });
+  deck=newDeck
+}else{
+  deck.push(
   new Carta(1, 3, "princesa", 15, "legendaria", "princesa.png"),
   new Carta(2, 3, "caballero", 14, "comun", "caballero.png"),
   new Carta(3, 3, "goblin gang", 14, "comun", "gang.png"),
@@ -48,10 +62,9 @@ let deck = [
   new Carta(5, 5, "inferno tower", 14, "rara", "tower.png"),
   new Carta(6, 6, "rocket", 14, "rara", "rocket.png"),
   new Carta(7, 3, "goblin barrel", 14, "epica", "barrel.png"),
-];
-
-deck.push(new Carta(8, 3, "arrows", 15, "comun", "arrows.png"));
-
+  new Carta(8, 3, "arrows", 15, "comun", "arrows.png"));
+  localStorage.setItem("deck",JSON.stringify(deck))
+}
 const containerCartas = document.getElementById("containerLibros");
 const titulo = document.getElementById("tituloPrincipal");
 const buscador = document.getElementById("buscador");

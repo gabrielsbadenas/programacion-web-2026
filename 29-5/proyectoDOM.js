@@ -52,6 +52,8 @@ function imprimirCatalogo(array = []){
         //pasarle/adjuntar un evento 
         btnAgregarCarrito.addEventListener("click", function(){
             agregarLibroCarrito(libro)
+            
+    localStorage.setItem("carrito",JSON.stringify(carrito))
         })
     })
 }
@@ -169,7 +171,7 @@ function agregarLibroForm(array){
     console.log(formAgregarLibro[0].value)
     console.log(formAgregarLibro.elements["tituloLibro"])
     console.log(formAgregarLibro.elements["tituloLibro"].value)
-    let libroNuevo = new Libro(array.length +1, formAgregarLibro[1].value, formAgregarLibro[0].value, formAgregarLibro[2].value, formAgregarLibro[3].value, "libroNuevo.jpg"
+    let libroNuevo = new Libro(array.length +1, formAgregarLibro[1].value, formAgregarLibro[0].value, Number(formAgregarLibro[2].value), Number(formAgregarLibro[3].value), "libroNuevo.jpg"
     )
     array.push(libroNuevo)
     //guardar en el storage el libro que acabo de pushear al array
@@ -213,6 +215,7 @@ function imprimirCarrito(array){
             //renderizando TODO el carrito solamente para poder actualizar el subtotal y la cantidad de unidades
             imprimirCarrito(carrito)
             calcularTotal(carrito)
+            guardarCarritoEnStorage()
         })
         //otro evento restarUnidad con btn -1
         document.getElementById(`btnRestarUnidad${libro.id}`).addEventListener("click", ()=>{
@@ -224,6 +227,7 @@ function imprimirCarrito(array){
             //volver a renderizar el carrito
             imprimirCarrito(carrito)
             calcularTotal(carrito)
+    localStorage.setItem("carrito",JSON.stringify(carrito))
         })
         //adjuntar elemento que elimina del DOM la card
         let btnEliminar = document.getElementById(`btnEliminar${libro.id}`)
@@ -236,11 +240,15 @@ function imprimirCarrito(array){
             carrito.splice(index,1)
             console.log(carrito)
             calcularTotal(carrito)
+            guardarCarritoEnStorage()
         }
         //sumarUna Unidad
         //restar una unidad
     })
     calcularTotal(carrito)
+}
+function guardarCarritoEnStorage(){
+    localStorage.setItem("carrito",JSON.stringify(carrito))
 }
 function calcularTotal(carrito){
     let totalForEach = 0

@@ -121,7 +121,8 @@ if (localStorage.getItem("biblioteca")) {
 console.log(biblioteca);
 //ARRAY ES MI CARRITO
 
-let carrito = JSON.parse(localStorage.getItem("carrito"));
+let carrito = []
+carrito = JSON.parse(localStorage.getItem("carrito"));
 if (carrito === null) {
   carrito = [];
 }

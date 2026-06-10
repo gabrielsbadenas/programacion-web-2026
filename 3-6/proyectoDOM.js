@@ -18,6 +18,7 @@ let modalBodyCarrito = document.getElementById("modalBodyCarrito");
 let botonCarrito = document.getElementById("botonCarrito");
 let totalCarrito = document.getElementById("totalCarrito");
 let botonFinalizarCompra = document.getElementById("botonFinalizarCompra");
+let divLoader = document.getElementById("divLoader")
 //muestra de ejemplo
 titulo.innerText = "Mis libros 🙌";
 //funciones
@@ -329,7 +330,6 @@ function finalizarCompra(carrito) {
 }
 
 //llamado de functipons:
-imprimirCatalogo(biblioteca);
 
 //eventos
 
@@ -371,3 +371,7 @@ botonFinalizarCompra.addEventListener("click", function () {
   carrito = finalizarCompra(carrito);
   localStorage.setItem("carrito", carrito);
 });
+setTimeout(() => {
+  imprimirCatalogo(biblioteca);
+  divLoader.remove()
+}, 2000);

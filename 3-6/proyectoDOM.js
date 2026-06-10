@@ -22,10 +22,7 @@ let divLoader = document.getElementById("divLoader")
 //muestra de ejemplo
 titulo.innerText = "Mis libros 🙌";
 //funciones
-
-function imprimirCatalogo(array = []) {
-  containerLibros.innerHTML = "";
-  //VAÑIDAR SI HAY PRODUCTOS PARA MOSTRAR, SINO HAY MOSTRAR TODO Y DECIR QUE PARA LA BUSQUEDA NO HAY COINCIDENCIAS, sino mostrar lo que coincida
+function recorrerCatalogo(array){
   array.forEach((libro) => {
     //objetivo del forEach imprimir cada uno de mis libros:
     //creo un div para cada uno de mis libros
@@ -56,6 +53,15 @@ function imprimirCatalogo(array = []) {
       localStorage.setItem("carrito", JSON.stringify(carrito));
     });
   });
+}
+function imprimirCatalogo(array = []) {
+  containerLibros.innerHTML = "";
+  //VAÑIDAR SI HAY PRODUCTOS PARA MOSTRAR, SINO HAY MOSTRAR TODO Y DECIR QUE PARA LA BUSQUEDA NO HAY COINCIDENCIAS, sino mostrar lo que coincida
+  recorrerCatalogo(array)
+  if(containerLibros.innerHTML === ""){
+    containerLibros.innerHTML = "no hay coincidencias"
+    recorrerCatalogo(biblioteca)
+  }
 }
 function clonarLibro(element) {
   let newElement = new Libro(
@@ -278,6 +284,7 @@ function imprimirCarrito(array) {
     //sumarUna Unidad
     //restar una unidad
   });
+
   calcularTotal(carrito);
 }
 function guardarCarritoEnStorage() {

@@ -1,3 +1,16 @@
+let DateTime = luxon.DateTime
+const now = DateTime.now()
+console.log(now.monthLong)
+console.log(now.toLocaleString(DateTime.DATE_SHORT))
+let nacimiento = DateTime.fromISO("2001-06-11")
+console.log(nacimiento.weekdayLong)
+let hora = document.getElementById("reloj")
+setInterval(function(){
+  let ahora = DateTime.now()
+  let formato = ahora.toLocaleString(DateTime.TIME_WITH_SECONDS) + ahora.toLocaleString({weekday:"long"})
+  hora.innerHTML = formato
+},1)
+/*
 Toastify({
   text: "Bienvenido al CFP n° 41",
   duration: 2800,
@@ -20,3 +33,4 @@ Swal.fire({
   icon: 'info',
   confirmButtonText: 'Continuar'
 })
+  */

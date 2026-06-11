@@ -6,23 +6,21 @@
 //FUNCION que reccorre el array e imprime en eldom todos mis libros
 
 //capturas del DOM
-let containerLibros = document.getElementById("containerLibros");
-let titulo = document.getElementById("tituloPrincipal");
-let buscador = document.getElementById("buscador");
-console.log(buscador);
-let selectOrden = document.getElementById("selectOrden");
-console.log(selectOrden.innerHTML);
-let guardarLibroBtn = document.getElementById("guardarLibroBtn");
-let formAgregarLibro = document.getElementById("formCargarLibro");
-let modalBodyCarrito = document.getElementById("modalBodyCarrito");
-let botonCarrito = document.getElementById("botonCarrito");
-let totalCarrito = document.getElementById("totalCarrito");
-let botonFinalizarCompra = document.getElementById("botonFinalizarCompra");
-let divLoader = document.getElementById("divLoader")
+let containerLibros = document.getElementById("containerLibros"),
+  titulo = document.getElementById("tituloPrincipal"),
+  buscador = document.getElementById("buscador"),
+  selectOrden = document.getElementById("selectOrden"),
+  guardarLibroBtn = document.getElementById("guardarLibroBtn"),
+  formAgregarLibro = document.getElementById("formCargarLibro"),
+  modalBodyCarrito = document.getElementById("modalBodyCarrito"),
+  botonCarrito = document.getElementById("botonCarrito"),
+  totalCarrito = document.getElementById("totalCarrito"),
+  botonFinalizarCompra = document.getElementById("botonFinalizarCompra"),
+  divLoader = document.getElementById("divLoader");
 //muestra de ejemplo
 titulo.innerText = "Mis libros 🙌";
 //funciones
-function recorrerCatalogo(array){
+function recorrerCatalogo(array) {
   array.forEach((libro) => {
     //objetivo del forEach imprimir cada uno de mis libros:
     //creo un div para cada uno de mis libros
@@ -57,10 +55,10 @@ function recorrerCatalogo(array){
 function imprimirCatalogo(array = []) {
   containerLibros.innerHTML = "";
   //VAÑIDAR SI HAY PRODUCTOS PARA MOSTRAR, SINO HAY MOSTRAR TODO Y DECIR QUE PARA LA BUSQUEDA NO HAY COINCIDENCIAS, sino mostrar lo que coincida
-  recorrerCatalogo(array)
-  if(containerLibros.innerHTML === ""){
-    containerLibros.innerHTML = "no hay coincidencias"
-    recorrerCatalogo(biblioteca)
+  recorrerCatalogo(array);
+  if (containerLibros.innerHTML === "") {
+    containerLibros.innerHTML = "no hay coincidencias";
+    recorrerCatalogo(biblioteca);
   }
 }
 function clonarLibro(element) {
@@ -320,10 +318,12 @@ function finalizarCompra(carrito) {
     carrito = [];
     //vaciar el DOM
     imprimirCarrito(carrito);
+    let ahora = luxon.DateTime.now()
+    let hora = ahora.toLocaleString(luxon.DateTime.TIME_WITH_SECONDS)
     //agregamos provisoriamente un sweet alert para genera un cartel que diga que la compra fue realizada con éxito
     Swal.fire({
       title: "Gracias por su compra😊",
-      text: 'Por mail le informar cómo pagar"',
+      text: 'Por mail le informar cómo pagar. Compra finalizada a las '+hora,
       icon: "success",
       confirmButtonText: "Continuar",
     });
@@ -380,5 +380,5 @@ botonFinalizarCompra.addEventListener("click", function () {
 });
 setTimeout(() => {
   imprimirCatalogo(biblioteca);
-  divLoader.remove()
+  divLoader.remove();
 }, 2000);

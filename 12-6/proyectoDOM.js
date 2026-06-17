@@ -16,9 +16,11 @@ let containerLibros = document.getElementById("containerLibros"),
   botonCarrito = document.getElementById("botonCarrito"),
   totalCarrito = document.getElementById("totalCarrito"),
   botonFinalizarCompra = document.getElementById("botonFinalizarCompra"),
+  horaReloj = document.getElementById("horaReloj"),
   divLoader = document.getElementById("divLoader");
 //muestra de ejemplo
 titulo.innerText = "Mis libros 🙌";
+let DateTime = luxon.DateTime
 //funciones
 function recorrerCatalogo(array) {
   array.forEach((libro) => {
@@ -382,3 +384,6 @@ setTimeout(() => {
   imprimirCatalogo(biblioteca);
   divLoader.remove();
 }, 2000);
+setInterval(()=>{
+  horaReloj.innerHTML=DateTime.now().toLocaleString(DateTime.TIME_WITH_SECONDS)
+},1000)

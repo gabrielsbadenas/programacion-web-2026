@@ -81,7 +81,27 @@ const libro6 = new Libro(
 );
 //ARRAY ES MI STOCK
 let biblioteca = [];
-
+function cargarLibrosThen() {
+  fetch("libros.json")
+    .then((rta) => rta)
+    .then((info) => console.log(info));
+}
+async function cargarLibrosJSON(array) {
+  let res = await fetch("libros.json");
+  let librosData = await res.json();
+  console.log(librosData);
+  for (let libro of librosData) {
+    let libroJSON = new Libro(
+      libro.id,
+      libro.autor,
+      libro.titulo,
+      libro.precio,
+      libro.stock,
+      libro.imagen,
+    );
+    array.push(libroJSON);
+  }
+}
 //EVALUAR SI EXISTE ALGO EN EL STORAGE CON LA CLAVE BIBLIOTECA
 if (localStorage.getItem("biblioteca")) {
   console.log("Entro y hay algo en el storage");
@@ -113,7 +133,8 @@ if (localStorage.getItem("biblioteca")) {
   //entre por prmera vez a mi sitio
   console.log("Entro por primera vez");
   //SI ENTRA POR PRIMERA VEZ, LO SETEO CON LOS LIBROS ORIGINALES
-  biblioteca.push(libro1, libro2, libro6, libro4, libro3, libro5);
+  //biblioteca.push(libro1, libro2, libro6, libro4, libro3, libro5);
+  cargarLibrosJSON(biblioteca);
   //creo la clave biblioteca en el storage POR PRIMERA VEZ
   localStorage.setItem("biblioteca", JSON.stringify(biblioteca));
 }
@@ -121,7 +142,7 @@ if (localStorage.getItem("biblioteca")) {
 console.log(biblioteca);
 //ARRAY ES MI CARRITO
 
-let carrito = []
+let carrito = [];
 carrito = JSON.parse(localStorage.getItem("carrito"));
 if (carrito === null) {
   carrito = [];
@@ -136,10 +157,9 @@ carrito.forEach((element) => {
     element.stock,
     element.imagen,
   );
-  newElement.cantidad=element.cantidad
+  newElement.cantidad = element.cantidad;
   newCarrito.push(newElement);
 });
 if (newCarrito != []) {
   carrito = newCarrito;
 }
-

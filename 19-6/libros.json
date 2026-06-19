@@ -1,0 +1,38 @@
+[
+  {
+    "id": 0,
+    "autor": "George Orwell",
+    "titulo": "1984",
+    "precio": 18000,
+    "stock": 2,
+    "imagen": "libroNuevo.jpg",
+    "cantidad": 1
+  },
+  {
+    "id":1,
+    "autor":"George Orwell",
+    "titulo":"Rebelion en la granja",
+    "precio":18000,
+    "stock":2,
+    "imagen":"libroNuevo.jpg",
+    "cantidad":1
+  },
+  {
+    "id":2,
+    "autor":"byung-chul han",
+    "titulo":"la sociedad del cansancio",
+    "precio":17910,
+    "stock":50,
+    "imagen":"libroNuevo.jpg",
+    "cantidad":1
+  },
+  {
+    "id":3,
+    "autor":"julio cortázar",
+    "titulo":"rayuela",
+    "precio":30081,
+    "stock":10,
+    "imagen":"libroNuevo.jpg",
+    "cantidad":1
+  }
+]

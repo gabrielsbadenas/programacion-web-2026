@@ -1,0 +1,32 @@
+/*tag o etiquetas*/
+
+h3{
+    color: blue;
+    font-family: cursive;
+    font-size: 48px;
+}
+/*class   simbolo .*/
+.pais{
+    color: green;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+/**id simbolo #*/
+#titulo{
+    color: black;
+}
+
+li{
+    color:black;
+    font-size: 24px;
+}
+#Par{
+    color: blue
+}
+.modoOscuro{
+    background-color: black;
+    color:white
+}
+.ocultar{
+    display: none;
+}
+

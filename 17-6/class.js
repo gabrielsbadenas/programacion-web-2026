@@ -134,9 +134,14 @@ if (localStorage.getItem("biblioteca")) {
   console.log("Entro por primera vez");
   //SI ENTRA POR PRIMERA VEZ, LO SETEO CON LOS LIBROS ORIGINALES
   //biblioteca.push(libro1, libro2, libro6, libro4, libro3, libro5);
-  cargarLibrosJSON(biblioteca);
-  //creo la clave biblioteca en el storage POR PRIMERA VEZ
-  localStorage.setItem("biblioteca", JSON.stringify(biblioteca));
+  window.bibliotecaReady = cargarLibrosJSON(biblioteca)
+    .then(() => {
+      localStorage.setItem("biblioteca", JSON.stringify(biblioteca));
+      console.log(biblioteca);
+    })
+    .catch((error) =>
+      console.error("Error cargando biblioteca por primera vez:", error),
+    );
 }
 //localStorage.setItem("biblioteca", JSON.stringify(biblioteca))
 console.log(biblioteca);

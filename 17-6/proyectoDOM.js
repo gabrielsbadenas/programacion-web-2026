@@ -130,6 +130,11 @@ function agregarLibroCarrito(originalBook) {
   }
 }
 function buscarTituloAutor(valorBuscar, array) {
+  if (!valorBuscar.trim()) {
+    imprimirCatalogo(array);
+    return;
+  }
+
   let coincidencias = array.filter(
     (elem) =>
       elem.titulo.toLowerCase().includes(valorBuscar.toLowerCase()) ||
@@ -140,7 +145,6 @@ function buscarTituloAutor(valorBuscar, array) {
     console.log(
       `Para ${valorBuscar} no hay coincidencias ni en el titulo ni en el autor`,
     );
-    //TENDRÏA QUE PNESAR QUE QUIERO MOSTRAR CUANDO NO HAY COINCIDENCIAS
   }
   imprimirCatalogo(coincidencias);
 }
@@ -380,10 +384,15 @@ botonFinalizarCompra.addEventListener("click", function () {
   carrito = finalizarCompra(carrito);
   localStorage.setItem("carrito", carrito);
 });
-setTimeout(() => {
-  imprimirCatalogo(biblioteca);
-  divLoader.remove();
-}, 2000);
-setInterval(()=>{
-  horaReloj.innerHTML=DateTime.now().toLocaleString(DateTime.TIME_WITH_SECONDS)
-},1000)
+window.bibliotecaReady
+  .then(() => {
+    imprimirCatalogo(biblioteca);
+    divLoader.remove();
+  })
+  .catch(() => {
+    imprimirCatalogo(biblioteca);
+    divLoader.remove();
+  });
+setInterval(() => {
+  horaReloj.innerHTML = DateTime.now().toLocaleString(DateTime.TIME_WITH_SECONDS);
+}, 1000);

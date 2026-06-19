@@ -12,6 +12,8 @@ let selectOrden = document.getElementById("selectOrden")
 
 let guardarLibroBtn =document.getElementById("guardarLibroBtn")
 let formAgregarLibro = document.getElementById("formCargarLibro")
+
+let librosVisibles = typeof biblioteca !== "undefined" ? biblioteca : []
 let modalBodyCarrito = document.getElementById("modalBodyCarrito")
 let botonCarrito = document.getElementById("botonCarrito")
 let totalCarrito = document.getElementById("totalCarrito")
@@ -97,8 +99,14 @@ function agregarLibroCarrito(book){
     }
 }
 function buscarTituloAutor(valorBuscar, array){
-    
+    if(valorBuscar.trim() === ""){
+        librosVisibles = array
+        imprimirCatalogo(array)
+        return
+    }
+
     let coincidencias = array.filter((elem)=> elem.titulo.toLowerCase().includes(valorBuscar.toLowerCase() )  ||  elem.autor.toLowerCase().includes(valorBuscar.toLowerCase()))
+    librosVisibles = coincidencias
 
     if(coincidencias.length < 1){
         console.log(`Para ${valorBuscar} no hay coincidencias ni en el titulo ni en el autor`)
@@ -120,16 +128,33 @@ function ordenarMenorMayorPrecio(array){
 function ordenarPorTituloAZ(array){
     //método toSorted hace lo mismo que el sort y no es destructivo
     let ordenadoAZ = array.toSorted((a, b)=>{
-        if(a.titulo < b.titulo){
+        let tituloA = a.titulo.toLowerCase()
+        let tituloB = b.titulo.toLowerCase()
+        if(tituloA < tituloB){
             return -1
         }
-        if(a.titulo > b.titulo){
+        if(tituloA > tituloB){
             return 1
         }
         return 0
     })
     
     imprimirCatalogo(ordenadoAZ)
+}
+function ordenarPorTituloZA(array){
+    let ordenadoZA = array.toSorted((a, b)=>{
+        let tituloA = a.titulo.toLowerCase()
+        let tituloB = b.titulo.toLowerCase()
+        if(tituloA > tituloB){
+            return -1
+        }
+        if(tituloA < tituloB){
+            return 1
+        }
+        return 0
+    })
+
+    imprimirCatalogo(ordenadoZA)
 }
 function agregarLibro(array){
     let titulo = document.getElementById("tituloInput")
@@ -279,21 +304,22 @@ buscador.addEventListener("input", ()=>{
 selectOrden.addEventListener("change",()=>{
     console.log("El evento change está funcionando")
     console.log(`La opción elegida tien valor ${selectOrden.value}`)
+    let arrayOrdenar = librosVisibles.length ? librosVisibles : biblioteca
     switch(selectOrden.value){
         case "0":
-            imprimirCatalogo(biblioteca)
+            imprimirCatalogo(arrayOrdenar)
         break
         case "1":
-            ordenarMayorMenorPrecio(biblioteca)
+            ordenarMayorMenorPrecio(arrayOrdenar)
         break
         case "2":
-            ordenarMenorMayorPrecio(biblioteca)
+            ordenarMenorMayorPrecio(arrayOrdenar)
         break
         case "3":
-            ordenarPorTituloAZ(biblioteca)
+            ordenarPorTituloAZ(arrayOrdenar)
         break
         case "4":
-            
+            ordenarPorTituloZA(arrayOrdenar)
         break
     }
 })

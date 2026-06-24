@@ -7,36 +7,16 @@ const db = new DatabaseSync(dbPath);
 
 const app = express();
 
+app.use(express.static(__dirname, { index: false }));
+
 app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'proyectoDOM.html'));
+});
+
+app.get('/api/libros', (req, res) => {
   const query = db.prepare('SELECT * FROM libros');
   const rows = query.all();
-
-  let html = `<!doctype html>
-  <html>
-    <head>
-      <meta charset="utf-8">
-      <title>Libros</title>
-      <style>
-        table{border-collapse:collapse;width:90%;}
-        td,th{border:1px solid #ccc;padding:8px;text-align:left}
-      </style>
-    </head>
-    <body>
-      <h1>Lista de libros</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>id</th><th>autor</th><th>titulo</th><th>precio</th><th>stock</th><th>imagen</th><th>cantidad</th>
-          </tr>
-        </thead>
-        <tbody>`;
-
-  for (const r of rows) {
-    html += `<tr><td>${r.id}</td><td>${r.autor}</td><td>${r.titulo}</td><td>${r.precio}</td><td>${r.stock}</td><td>${r.imagen}</td><td>${r.cantidad}</td></tr>`;
-  }
-
-  html += `</tbody></table></body></html>`;
-  res.send(html);
+  res.json(rows);
 });
 
 const port = process.env.PORT || 3000;

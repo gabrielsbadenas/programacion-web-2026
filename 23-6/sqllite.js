@@ -24,6 +24,7 @@ function insertRow() {
   const insert = db.prepare(
     "INSERT INTO libros (id, autor, titulo, precio, stock, imagen, cantidad) VALUES (?, ?, ?, ?, ?, ?, ?)",
   );
+  /*
   insert.run(0, "George Orwell", "1984", 18000, 2, "libroNuevo.jpg", 1);
   insert.run(
     1,
@@ -44,7 +45,10 @@ function insertRow() {
     1,
   );
   insert.run(3, "julio cortázar", "rayuela", 30081, 10, "libroNuevo.jpg", 1);
-}
+*/
+insert.run(4,"ray bradbury","Fahrenheit 451", 20000, 5, "libroNuevo.jpg", 1);
+  }
+insertRow();
 // Query data
 const query = db.prepare("SELECT * FROM libros");
 console.log(query.all());

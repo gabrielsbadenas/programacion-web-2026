@@ -358,10 +358,13 @@ botonFinalizarCompra.addEventListener("click", function(){
 
 
 //llamado de functions
-setTimeout(()=>{
-    imprimirCatalogo(biblioteca)
-    loader.classList.toggle("ocultar")
-},2000)
+async function initApp() {
+  await cargarLibrosDB()
+  imprimirCatalogo(biblioteca)
+  divLoader.style.display = "none"
+}
+
+initApp()
 
 setInterval(()=>{
     let horaReloj = DateTime.now()

@@ -33,45 +33,19 @@ class Libro{
 //ARRAY ES MI STOCK
 let biblioteca = []
 
-async function cargarLibrosJSON(){
-  let resp = await fetch("libros.json")
-  let librosData = await resp.json()
-  //en librosData ya tengo disponible la petición
-  console.log(librosData)
-    for(let libro of librosData){
-        let libroJSON = new Libro(libro.id, libro.autor, libro.titulo, libro.precio, libro.stock, libro.imagen)
-        biblioteca.push(libroJSON)
-    }
-    
-    
+async function cargarLibrosDB(){
+  const storedBiblioteca = localStorage.getItem("biblioteca")
+  if (storedBiblioteca){
+    const parsed = JSON.parse(storedBiblioteca)
+    biblioteca = parsed.map((elem) => new Libro(elem.id, elem.autor, elem.titulo, elem.precio, elem.stock, elem.imagen))
+    return
+  }
+
+  const resp = await fetch("/api/libros")
+  const librosData = await resp.json()
+  biblioteca = librosData.map((libro) => new Libro(libro.id, libro.autor, libro.titulo, libro.precio, libro.stock, libro.imagen))
+  localStorage.setItem("biblioteca", JSON.stringify(biblioteca))
 }
-localStorage.clear()
-//EVALUAR SI EXISTE ALGO EN EL STORAGE CON LA CLAVE BIBLIOTECA
-if(localStorage.getItem("biblioteca")){
-    console.log("Entro y hay algo en el storage -- DE BIBLIOTECA ")
-    //al array biblioteca, asignarle 
-    console.log(JSON.parse(localStorage.getItem("biblioteca")))
-    //que tengo que hacer?? volver a pasarle la class a todos los elementos de este array:
-    for(let elem of JSON.parse(localStorage.getItem("biblioteca"))){
-        //YA LLEGUE A TENER DISPONIBLE CADA OBJETO/ELEMENTO
-        //PASARLE LA CLASS Y CÖMO HAGO PARA LLENAR BIBLIOTECA
-        //id, autor, titulo, precio, stock, imagen
-        let libroConClass = new Libro(elem.id, elem.autor,elem.titulo, elem.precio, elem.stock,elem.imagen) 
-        
-        biblioteca.push(libroConClass)
-    }
-    console.log(biblioteca)
-}else{
-    //tanto si es false o si es null ENTRA A ELSE
-    //Si esntra aca quiere decir que la clave del storage está y por lo tanto no existe stock
-    //entre por prmera vez a mi sitio
-    console.log("Entro por primera vez")
-    //SI ENTRA POR PRIMERA VEZ, LO SETEO CON LOS LIBROS ORIGINALES
-    cargarLibrosJSON()
-    //creo la clave biblioteca en el storage POR PRIMERA VEZ
-    localStorage.setItem("biblioteca", JSON.stringify(biblioteca))
-}
-//localStorage.setItem("biblioteca", JSON.stringify(biblioteca))
 
 //ARRAY ES MI CARRITO
 let carrito = []

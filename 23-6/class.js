@@ -32,7 +32,7 @@ class Libro{
 
 //ARRAY ES MI STOCK
 let biblioteca = []
-
+localStorage.clear()
 async function cargarLibrosDB(){
   const storedBiblioteca = localStorage.getItem("biblioteca")
   if (storedBiblioteca){

@@ -24,7 +24,28 @@ let loader = document.getElementById("loader")
 //muestra de ejemplo
 titulo.innerText = "Mis libros 🙌"
 //funciones
+async function peticionFinalizarCompra(libros){
+    const payload = libros.map((libro) => ({
+        id: libro.id,
+        stock: Math.max(0, Number(libro.stock) - Number(libro.cantidad || 1))
+    }));
 
+    const response = await fetch('/api/libros/stock', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.error || 'No se pudo actualizar el stock');
+    }
+
+    return data;
+}
 function imprimirCatalogo(array = []){
     containerLibros.innerHTML = ""
     //VAÑIDAR SI HAY PRODUCTOS PARA MOSTRAR, SINO HAY MOSTRAR TODO Y DECIR QUE PARA LA BUSQUEDA NO HAY COINCIDENCIAS, sino mostrar lo que coincida
@@ -269,28 +290,36 @@ function calcularTotal(carrito){
     return totalReduce
 }
 
-function finalizarCompra(carrito){
+async function finalizarCompra(carrito){
     if(carrito.length >= 1){
-        //calcular y mostrar el total
-        let mostrarTotal= calcularTotal(carrito)
+        let mostrarTotal = calcularTotal(carrito)
         console.log(`El total de su compra es ${mostrarTotal}`)
-        //vaciar el carrito
-        carrito = []
-        //vaciar el DOM
-        imprimirCarrito(carrito)
-        let fechaCompra = DateTime.now()
-        //agregamos provisoriamente un sweet alert para genera un cartel que diga que la compra fue realizada con éxito
-        Swal.fire({
-                    title: 'Gracias por su compra😊',
-                    text: `Siendo ${fechaCompra.toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY)} le agradecemos por su compra`,
-                    icon: 'success',
-                    confirmButtonText: 'Continuar'
-                    })
-        totalCarrito.innerText = `No hay productos en el carrito`
-        //localStorage.setItem("carrito", [])
-        localStorage.removeItem("carrito")
-        return carrito
-    }else{
+
+        try {
+            await peticionFinalizarCompra(carrito)
+
+            carrito = []
+            imprimirCarrito(carrito)
+            let fechaCompra = DateTime.now()
+            Swal.fire({
+                title: 'Gracias por su compra😊',
+                text: `Siendo ${fechaCompra.toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY)} le agradecemos por su compra`,
+                icon: 'success',
+                confirmButtonText: 'Continuar'
+            })
+            totalCarrito.innerText = `No hay productos en el carrito`
+            localStorage.removeItem("carrito")
+            return carrito
+        } catch (error) {
+            console.error(error)
+            Swal.fire({
+                title: 'No se pudo finalizar la compra',
+                text: error.message,
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            })
+        }
+    } else {
         console.log(`No puede finalizar la compra ya qye no hay productos en el carrito`)
     }
 }
@@ -344,10 +373,9 @@ botonFinalizarCompra.addEventListener("click", function(){
         showDenyButton: true,
         confirmButtonText: "Si, quiero",
         denyButtonText: `Voy a seguir mirando`
-        }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
+        }).then(async (result) => {
         if (result.isConfirmed){
-            carrito = finalizarCompra(carrito)
+            carrito = await finalizarCompra(carrito)
         } 
         else if(result.isDenied){
             Swal.fire({

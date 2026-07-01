@@ -56,6 +56,10 @@ function imprimirCatalogo(array = []){
             agregarLibroCarrito(libro)
         })
     })
+
+    if (loader) {
+        loader.style.display = "none"
+    }
 }
 
 function agregarLibroCarrito(book){

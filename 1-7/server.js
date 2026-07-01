@@ -6,7 +6,10 @@ const dbPath = path.join(__dirname, 'data.db');
 const db = new DatabaseSync(dbPath);
 
 const app = express();
-
+const cors = require('cors');
+app.use(cors({
+  origin:["localhost"]
+}));
 app.use(express.static(__dirname, { index: false }));
 
 app.get('/', (req, res) => {

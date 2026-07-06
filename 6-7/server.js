@@ -13,6 +13,7 @@ app.use(
   }),
 );
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname, { index: false }));
 
 app.get("/", (req, res) => {
@@ -31,13 +32,30 @@ app.get("/capturarOfertas", function (req, res) {
   let librosOfertas = conexion.all();
   res.json(librosOfertas);
 });
-app.post("/cargarLibro",(req,res)=>{
-  const body = req.body
-  let conexion = db.prepare("insert into libros (autor,titulo,precio,stock,imagen) values ('Jorge Luis Borges','El informe de Brodie',4000,2,'libroNuevo.jpg'")
-  let libro = conexion.all()
-  conexion.run()
-  res.json(libro)
-})
+app.post("/cargarLibro", (req, res) => {
+  try {
+    console.log(req.body);
+    const { tituloLibro, autor, precio, stock } = req.body;
+    const titulo = tituloLibro?.trim();
+    const autorNombre = autor?.trim();
+    const precioValue = Number(precio);
+    const stockValue = Number(stock);
+
+    if (!titulo || !autorNombre || !Number.isFinite(precioValue) || !Number.isFinite(stockValue)) {
+      return res.status(400).json({ error: "Completa todos los campos correctamente." });
+    }
+
+    const stmt = db.prepare(
+      "INSERT INTO libros (autor, titulo, precio, stock, imagen) VALUES (?, ?, ?, ?, ?)"
+    );
+    const result = stmt.run(autorNombre, titulo, precioValue, stockValue, "libroNuevo.jpg");
+
+    res.redirect(303, "/");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "No se pudo cargar el libro." });
+  }
+});
 app.post("/api/libros/stock", (req, res) => {
   try {
     const body = req.body;

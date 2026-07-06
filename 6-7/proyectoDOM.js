@@ -211,7 +211,7 @@ function agregarLibroForm(array){
     //guardar en el storage el libro que acabo de pushear al array
     localStorage.setItem("biblioteca", JSON.stringify(array))
     //para resear un form
-    formAgregarLibro.reset()
+    //formAgregarLibro.reset()
 }
 function imprimirCarrito(array){
     modalBodyCarrito.innerHTML = ""
@@ -356,11 +356,35 @@ selectOrden.addEventListener("change",()=>{
         break
     }
 })
-guardarLibroBtn.onclick = ()=>{
-    //array que recibe es nuestro stock
-   agregarLibroForm(biblioteca)
-    imprimirCatalogo(biblioteca)
-}
+formAgregarLibro.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(formAgregarLibro);
+    const body = new URLSearchParams(formData).toString();
+
+    try {
+        const response = await fetch("/cargarLibro", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+            },
+            body
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || "No se pudo guardar el libro");
+        }
+
+        formAgregarLibro.reset();
+        agregarLibroForm(biblioteca);
+        imprimirCatalogo(biblioteca);
+        window.location.href = "/";
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+});
 botonCarrito.onclick = function(){
     imprimirCarrito(carrito)
 }

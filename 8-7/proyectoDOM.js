@@ -292,6 +292,20 @@ function calcularTotal(carrito){
 
 async function finalizarCompra(carrito){
     if(carrito.length >= 1){
+        // Validar que todos los libros tengan stock suficiente
+        const librosConStockInsuficiente = carrito.filter(libro => libro.cantidad > libro.stock)
+        
+        if(librosConStockInsuficiente.length > 0){
+            const nombresLibros = librosConStockInsuficiente.map(libro => `${libro.titulo} (necesitas ${libro.cantidad}, disponibles ${libro.stock})`).join(', ')
+            Swal.fire({
+                title: 'Stock insuficiente',
+                text: `No hay suficiente stock para: ${nombresLibros}`,
+                icon: 'warning',
+                confirmButtonText: 'Aceptar'
+            })
+            return carrito
+        }
+
         let mostrarTotal = calcularTotal(carrito)
         console.log(`El total de su compra es ${mostrarTotal}`)
 

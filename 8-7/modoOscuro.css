@@ -1,0 +1,38 @@
+body.dark-theme {
+  background-color: #121212;
+  color: #f8f9fa;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-theme .navbar,
+body.dark-theme .card,
+body.dark-theme .modal-content,
+body.dark-theme .form-control,
+body.dark-theme .form-select {
+  background-color: #1f1f1f;
+  color: #f8f9fa;
+  border-color: #444;
+}
+
+body.dark-theme .card-title,
+body.dark-theme .card-text,
+body.dark-theme .modal-title,
+body.dark-theme .modal-body,
+body.dark-theme .navbar-brand,
+body.dark-theme .navbar-nav .nav-link {
+  color: #f8f9fa;
+}
+
+body.dark-theme .btn-success {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+body.dark-theme .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+body.dark-theme .form-control::placeholder {
+  color: #bdbdbd;
+}

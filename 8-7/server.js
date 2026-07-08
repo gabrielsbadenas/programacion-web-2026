@@ -35,8 +35,8 @@ app.get("/capturarOfertas", function (req, res) {
 app.post("/cargarLibro", (req, res) => {
   try {
     console.log(req.body);
-    const { tituloLibro, autor, precio, stock } = req.body;
-    const titulo = tituloLibro?.trim();
+    const { tituloLibro, autor, precio, stock } = req.body,
+    titulo = tituloLibro?.trim();
     const autorNombre = autor?.trim();
     const precioValue = Number(precio);
     const stockValue = Number(stock);
@@ -88,6 +88,7 @@ app.post("/api/libros/stock", (req, res) => {
       message: "Stock actualizado correctamente",
       updated: items.length,
     });
+    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
